@@ -473,4 +473,29 @@ router.get("/myTalkSend",(req,res)=>{
     })
 
 })
+
+
+//根据talkId获取某个帖子
+router.get("/talkEssayDetail/:talkId",(req,res)=>{
+    let talkId=req.params.talkId;
+    talkEssayModel.findById(talkId).then((talkdata)=>{
+        userModel.findById(talkdata.anglerId,{__v:0,userPsw:0}).exec((err1,userinfo)=>{
+            if(err1){
+                throw err1;
+            }
+            talkdata.userInfo=userinfo;
+            res.send({
+                errCode:0,
+                errMsg:'获取帖子详情成功',
+                talkdata:talkdata
+            })
+        })
+        
+    }).catch((err)=>{
+        if(err){
+            throw err;
+        }
+    })
+
+})
 module.exports = router;

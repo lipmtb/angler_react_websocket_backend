@@ -28,7 +28,8 @@ const msgModel=mongoose.model("message",new mongoose.Schema({
         fromUserName:String,
         messageContent:String,
         fromUserInfo:Object,
-        createTime:Date
+        createTime:Date,
+        fromUserComment:String
     }],//最新消息数组：用户xxx评论了你 yyyy
     messageCount:Number,//该帖子的新消息数(未读消息)
     newMessageTime:Date   //最新消息创建时间
