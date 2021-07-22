@@ -27,7 +27,7 @@ let mongoose =require("mongoose");
 // })
 
 //mongoose连接数据库
-mongoose.connect("mongodb://127.0.0.1:27001/angler", {
+mongoose.connect("mongodb://127.0.0.1:27001/reactangler", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
@@ -59,7 +59,7 @@ app.use('/', loginRouter);
 app.use("/user",userRouter);//修改用户头像等
 app.use("/talk",talkRouter);//钓友圈
 app.use("/tip",tipRouter);//技巧
-app.use("/message",messageRouter);
+app.use("/message",messageRouter);//消息
 
 
 
@@ -82,11 +82,14 @@ app.use(function(err, req, res, next) {
 });
 
 let server = http.createServer(app);
-server.listen(82,()=>{
-  console.log("服务器在82端口启动")
+server.listen(5300,()=>{
+  console.log("服务器在5300端口启动")
 });
 
 const io=require("socket.io")(server,{ cors: true });
+io.on("connect",()=>{
+  console.log("新连接");
+})
 module.exports = {
   io,
   app
